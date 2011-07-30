@@ -13,7 +13,9 @@ static int teardown(void)
 
 static void test_LedsOffAfterCreate(void)
 {
-	PCU_FAIL("Start here");
+	uint16_t virtualLeds = 0xffff;
+	LedDriver_Create(&virtualLeds);
+	PCU_ASSERT_EQUAL((uint16_t) 0, virtualLeds);
 }
 
 
