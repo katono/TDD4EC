@@ -1,4 +1,5 @@
 #include <PCUnit/PCUnit.h>
+#include "LedDriver.h"
 
 static int setup(void)
 {
