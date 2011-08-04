@@ -1,5 +1,5 @@
 CC = gcc
-CFLAGS = -Wall -Wextra -Wno-missing-field-initializers -std=c99 -pedantic-errors -g
+CFLAGS = -Wall -g
 CFLAGS += -I/usr/local/include
 CFLAGS += -I../src
 # CFLAGS += -DPCU_NO_LIBC
