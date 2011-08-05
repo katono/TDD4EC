@@ -1,8 +1,11 @@
 #include <PCUnit/PCUnit.h>
 #include "LedDriver.h"
 
+static uint16_t virtualLeds;
+
 static int setup(void)
 {
+	LedDriver_Create(&virtualLeds);
 	return 0;
 }
 
@@ -21,16 +24,12 @@ static void test_LedsOffAfterCreate(void)
 
 static void test_TurnOnLedOne(void)
 {
-	uint16_t virtualLeds;
-	LedDriver_Create(&virtualLeds);
 	LedDriver_TurnOn(1);
 	PCU_ASSERT_EQUAL((uint16_t) 1, virtualLeds);
 }
 
 static void test_TurnOffLedOne(void)
 {
-	uint16_t virtualLeds;
-	LedDriver_Create(&virtualLeds);
 	LedDriver_TurnOn(1);
 	LedDriver_TurnOff(1);
 	PCU_ASSERT_EQUAL((uint16_t) 0, virtualLeds);
