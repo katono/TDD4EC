@@ -40,9 +40,9 @@ static void test_TurnOffLedOne(void)
 PCU_Suite *LedDriverTest_suite(void)
 {
 	static PCU_Test tests[] = {
-		{ "test_LedsOffAfterCreate", test_LedsOffAfterCreate },
-		{ "test_TurnOnLedOne", test_TurnOnLedOne },
-		{ "test_TurnOffLedOne", test_TurnOffLedOne },
+		PCU_TEST(test_LedsOffAfterCreate),
+		PCU_TEST(test_TurnOnLedOne),
+		PCU_TEST(test_TurnOffLedOne),
 	};
 	static PCU_Suite suite = { "LedDriverTest", tests, sizeof tests / sizeof tests[0], setup, teardown };
 	return &suite;
