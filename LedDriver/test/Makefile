@@ -9,13 +9,14 @@ OBJS = AllTests.o
 OBJS += LedDriverTest.o
 OBJS += LedDriver.o
 
-VPATH = ../src
-
 all: $(TARGET)
 
 .SUFFIXES: .c .o
 
-.c .o:
+LedDriver.o: ../src/LedDriver.c
+	$(CC) $(CFLAGS) -c $<
+
+.c.o:
 	$(CC) $(CFLAGS) -c $<
 
 
