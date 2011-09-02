@@ -9,7 +9,10 @@ OBJS = AllTests.o
 OBJS += LedDriverTest.o
 OBJS += LedDriver.o
 
-all: $(TARGET)
+all: pcunit_register $(TARGET) test
+
+pcunit_register:
+	pcunit_register.rb
 
 .SUFFIXES: .c .o
 
@@ -19,14 +22,14 @@ LedDriver.o: ../src/LedDriver.c
 .c.o:
 	$(CC) $(CFLAGS) -c $<
 
-
-
 $(TARGET): $(OBJS)
 	$(CC) $(CFLAGS) $(OBJS) -o $@ $(LFLAGS)
+
+test:
 	./$(TARGET)
 
 
-.PHONY: clean
+.PHONY: clean all pcunit_register test
 clean:
 	rm -f *.o $(TARGET)
 
