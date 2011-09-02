@@ -27,12 +27,18 @@ static uint16_t convertLedNumberToBit(int ledNumber)
 
 void LedDriver_TurnOn(int ledNumber)
 {
+	if (ledNumber <= 0 || 16 < ledNumber) {
+		return;
+	}
 	ledsImage |= convertLedNumberToBit(ledNumber);
 	updateHardWare();
 }
 
 void LedDriver_TurnOff(int ledNumber)
 {
+	if (ledNumber <= 0 || 16 < ledNumber) {
+		return;
+	}
 	ledsImage &= ~(convertLedNumberToBit(ledNumber));
 	updateHardWare();
 }
