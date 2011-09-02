@@ -62,6 +62,13 @@ static void test_LedMemoryIsNotReadable(void)
 	PCU_ASSERT_EQUAL((uint16_t) 0x80, virtualLeds);
 }
 
+static void test_UpperAndLowerBounds(void)
+{
+	LedDriver_TurnOn(1);
+	LedDriver_TurnOn(16);
+	PCU_ASSERT_EQUAL((uint16_t) 0x8001, virtualLeds);
+}
+
 
 PCU_Suite *LedDriverTest_suite(void)
 {
@@ -73,6 +80,7 @@ PCU_Suite *LedDriverTest_suite(void)
 		PCU_TEST(test_TurnOffAnyLed),
 		PCU_TEST(test_AllOn),
 		PCU_TEST(test_LedMemoryIsNotReadable),
+		PCU_TEST(test_UpperAndLowerBounds),
 	};
 	static PCU_Suite suite = { "LedDriverTest", tests, sizeof tests / sizeof tests[0], setup, teardown };
 	return &suite;
