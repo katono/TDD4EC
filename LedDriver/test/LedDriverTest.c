@@ -1,5 +1,7 @@
 #include "PCUnit/PCUnit.h"
 #include "LedDriver.h"
+#include "RuntimeError.h"
+#include "mocks/RuntimeErrorStub.h"
 
 static uint16_t virtualLeds;
 
@@ -89,6 +91,14 @@ static void test_OutOfBoundsTurnOffDoesNoHarm(void)
 	PCU_ASSERT_EQUAL((uint16_t) 0xffff, virtualLeds);
 }
 
+static void test_OutOfBoundsProducesRuntimeError(void)
+{
+	LedDriver_TurnOn(-1);
+	PCU_ASSERT_STRING_EQUAL("LED Driver: out-of-bounds LED",
+			RuntimeErrorStub_GetLastError());
+	PCU_ASSERT_EQUAL(-1, RuntimeErrorStub_GetLastParameter());
+}
+
 
 PCU_Suite *LedDriverTest_suite(void)
 {
@@ -103,6 +113,7 @@ PCU_Suite *LedDriverTest_suite(void)
 		PCU_TEST(test_UpperAndLowerBounds),
 		PCU_TEST(test_OutOfBoundsTurnOnDoesNoHarm),
 		PCU_TEST(test_OutOfBoundsTurnOffDoesNoHarm),
+		PCU_TEST(test_OutOfBoundsProducesRuntimeError),
 	};
 	static PCU_Suite suite = { "LedDriverTest", tests, sizeof tests / sizeof tests[0], setup, teardown };
 	return &suite;

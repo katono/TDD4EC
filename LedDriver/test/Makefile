@@ -8,6 +8,9 @@ TARGET = alltests
 OBJS = AllTests.o
 OBJS += LedDriverTest.o
 OBJS += LedDriver.o
+OBJS += RuntimeErrorStub.o
+
+VPATH = mocks
 
 all: pcunit_register $(TARGET) test
 
