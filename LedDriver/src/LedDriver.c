@@ -9,6 +9,11 @@ enum {
 	ALL_LEDS_OFF = ~ALL_LEDS_ON
 };
 
+enum {
+	FIRST_LED = 1,
+	LAST_LED = 16
+};
+
 static void updateHardWare(void)
 {
 	*ledsAddress = ledsImage;
@@ -26,9 +31,14 @@ static uint16_t convertLedNumberToBit(int ledNumber)
 	return 1 << (ledNumber - 1);
 }
 
+static int IsLedOutOfBounds(int ledNumber)
+{
+	return (ledNumber < FIRST_LED || LAST_LED < ledNumber);
+}
+
 void LedDriver_TurnOn(int ledNumber)
 {
-	if (ledNumber <= 0 || 16 < ledNumber) {
+	if (IsLedOutOfBounds(ledNumber)) {
 		RUNTIME_ERROR("LED Driver: out-of-bounds LED", -1);
 		return;
 	}
@@ -38,7 +48,7 @@ void LedDriver_TurnOn(int ledNumber)
 
 void LedDriver_TurnOff(int ledNumber)
 {
-	if (ledNumber <= 0 || 16 < ledNumber) {
+	if (IsLedOutOfBounds(ledNumber)) {
 		RUNTIME_ERROR("LED Driver: out-of-bounds LED", -1);
 		return;
 	}
