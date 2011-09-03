@@ -113,8 +113,17 @@ static void test_IsOn(void)
 
 static void test_OutOfBoundsLedsAreAlwaysOff(void)
 {
+	PCU_ASSERT_TRUE(LedDriver_IsOff(0));
+	PCU_ASSERT_TRUE(LedDriver_IsOff(17));
 	PCU_ASSERT_FALSE(LedDriver_IsOn(0));
 	PCU_ASSERT_FALSE(LedDriver_IsOn(17));
+}
+
+static void test_IsOff(void)
+{
+	PCU_ASSERT_TRUE(LedDriver_IsOff(12));
+	LedDriver_TurnOn(12);
+	PCU_ASSERT_FALSE(LedDriver_IsOff(12));
 }
 
 
@@ -135,6 +144,7 @@ PCU_Suite *LedDriverTest_suite(void)
 		PCU_TEST_SKIPPED(test_OutOfBoundsToDo),
 		PCU_TEST(test_IsOn),
 		PCU_TEST(test_OutOfBoundsLedsAreAlwaysOff),
+		PCU_TEST(test_IsOff),
 	};
 	static PCU_Suite suite = { "LedDriverTest", tests, sizeof tests / sizeof tests[0], setup, teardown };
 	return &suite;
