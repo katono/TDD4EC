@@ -99,6 +99,11 @@ static void test_OutOfBoundsProducesRuntimeError(void)
 	PCU_ASSERT_EQUAL(-1, RuntimeErrorStub_GetLastParameter());
 }
 
+static void test_OutOfBoundsToDo(void)
+{
+	/* TODO */
+}
+
 
 PCU_Suite *LedDriverTest_suite(void)
 {
@@ -114,6 +119,7 @@ PCU_Suite *LedDriverTest_suite(void)
 		PCU_TEST(test_OutOfBoundsTurnOnDoesNoHarm),
 		PCU_TEST(test_OutOfBoundsTurnOffDoesNoHarm),
 		PCU_TEST(test_OutOfBoundsProducesRuntimeError),
+		PCU_TEST_SKIPPED(test_OutOfBoundsToDo),
 	};
 	static PCU_Suite suite = { "LedDriverTest", tests, sizeof tests / sizeof tests[0], setup, teardown };
 	return &suite;
