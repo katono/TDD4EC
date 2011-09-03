@@ -134,6 +134,13 @@ static void test_TurnOffMultipleLeds(void)
 	PCU_ASSERT_EQUAL((uint16_t) ((~0x180) & 0xffff), virtualLeds);
 }
 
+static void test_AllOff(void)
+{
+	LedDriver_TurnAllOn();
+	LedDriver_TurnAllOff();
+	PCU_ASSERT_EQUAL((uint16_t) 0, virtualLeds);
+}
+
 
 PCU_Suite *LedDriverTest_suite(void)
 {
@@ -154,6 +161,7 @@ PCU_Suite *LedDriverTest_suite(void)
 		PCU_TEST(test_OutOfBoundsLedsAreAlwaysOff),
 		PCU_TEST(test_IsOff),
 		PCU_TEST(test_TurnOffMultipleLeds),
+		PCU_TEST(test_AllOff),
 	};
 	static PCU_Suite suite = { "LedDriverTest", tests, sizeof tests / sizeof tests[0], setup, teardown };
 	return &suite;
